@@ -27,4 +27,46 @@ class RumData extends Test
             ->dump($this->testedInstance)
         ;
     }
+
+    public function shouldBeUseAsAnArray()
+    {
+        $this
+            ->given(
+                $data = 500,
+                $this->newTestedInstance(),
+                $this->testedInstance->set($data, 'name')
+            )
+            ->testedClass
+                ->hasInterface('\ArrayAccess')
+            ->assert('it should test if field exists normaly')
+                ->boolean(isset($this->testedInstance['name']))
+                    ->isTrue()
+                ->boolean(isset($this->testedInstance['falseName']))
+                    ->isFalse()
+            ->assert('it should return data normaly')
+                ->integer($this->testedInstance['name'])
+                    ->isEqualTo($data)
+                ->variable($this->testedInstance['falsField'])
+                    ->isNull()
+
+            ->assert('it should agree to create a new field')
+                ->given($this->testedInstance['customField'] = 'foo')
+                ->string($this->testedInstance['customField'])
+                    ->isEqualTo('foo')
+                ->boolean(isset($this->testedInstance['customField']))
+                    ->isTrue()
+
+            ->assert('it should unset data normaly')
+                ->given($this->testedInstance['customField'] = 'foo')
+                ->boolean(isset($this->testedInstance['customField']))
+                    ->isTrue()
+                ->when(
+                    function () {
+                        unset($this->testedInstance['customField']);
+                    }
+                )
+                ->boolean(isset($this->testedInstance['customField']))
+                    ->isFalse()
+        ;
+    }
 }

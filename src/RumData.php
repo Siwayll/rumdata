@@ -2,7 +2,7 @@
 
 namespace Siwayll\RumData;
 
-class RumData
+class RumData implements \ArrayAccess
 {
     public function get(string ...$names)
     {
@@ -65,6 +65,26 @@ class RumData
         }
 
         return true;
+    }
+
+    public function offsetExists($offset)
+    {
+        return $this->has($offset);
+    }
+
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        return $this->set($value, $offset);
+    }
+
+    public function offsetUnset($offset)
+    {
+        return $this->kill($offset);
     }
 }
 

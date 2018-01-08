@@ -87,4 +87,3 @@ class RumData implements \ArrayAccess
         return $this->kill($offset);
     }
 }
-

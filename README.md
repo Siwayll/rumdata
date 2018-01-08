@@ -1,4 +1,6 @@
 # RumData
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSiwayll%2Frumdata.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FSiwayll%2Frumdata?ref=badge_shield)
+
 data that goes with anything
 
 ## Contributing
@@ -20,3 +22,6 @@ make install
 ## License
 
 MIT
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FSiwayll%2Frumdata.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FSiwayll%2Frumdata?ref=badge_large)

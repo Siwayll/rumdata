@@ -24,7 +24,29 @@ class RumData extends Test
                 ->isFalse()
             ->boolean($this->testedInstance->has('depth1'))
                 ->isTrue()
-            ->dump($this->testedInstance)
+        ;
+    }
+
+    public function shouldAcceptIntegerKey()
+    {
+        $this
+            ->given($this->newTestedInstance())
+            ->object($this->testedInstance->set(500, 1))
+                ->isTestedInstance()
+            ->integer($this->testedInstance->get(1))
+                ->isEqualTo(500)
+            ->object($this->testedInstance->set(500, 10, 20))
+                ->isTestedInstance()
+            ->boolean($this->testedInstance->has(10, 20))
+                ->isTrue()
+            ->integer($this->testedInstance->get(10, 20))
+                ->isEqualTo(500)
+            ->object($this->testedInstance->kill(10, 20))
+                ->isTestedInstance()
+            ->boolean($this->testedInstance->has(10, 20))
+                ->isFalse()
+            ->boolean($this->testedInstance->has(10))
+                ->isTrue()
         ;
     }
 

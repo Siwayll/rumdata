@@ -4,7 +4,7 @@ namespace Siwayll\RumData;
 
 class RumData implements \ArrayAccess
 {
-    public function get(string ...$names)
+    public function get(...$names)
     {
         $data = $this;
         foreach ($names as $name) {
@@ -16,7 +16,7 @@ class RumData implements \ArrayAccess
         return $data;
     }
 
-    public function set($value, string ...$names): self
+    public function set($value, ...$names): self
     {
         $data = $this;
         foreach ($names as $count => $name) {
@@ -34,7 +34,7 @@ class RumData implements \ArrayAccess
         return $this;
     }
 
-    public function kill(string ...$names)
+    public function kill(...$names)
     {
         $data = $this;
         foreach ($names as $count => $name) {
@@ -53,7 +53,7 @@ class RumData implements \ArrayAccess
         return $this;
     }
 
-    public function has(string ...$names)
+    public function has(...$names)
     {
         $data = $this;
         foreach ($names as $name) {

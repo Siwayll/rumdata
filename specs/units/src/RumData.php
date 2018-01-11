@@ -91,4 +91,55 @@ class RumData extends Test
                     ->isFalse()
         ;
     }
+
+    public function shouldKnowIfAPartOfRumdataIsAList()
+    {
+        $this
+            ->given(
+                $data = 500,
+                $list = $this->newTestedInstance(),
+                $this->testedInstance->set($data, 0),
+                $this->testedInstance->set($data, 1),
+                $this->testedInstance->set($data, 2),
+                $this->testedInstance->set($data, 3),
+                $smallList = $this->newTestedInstance(),
+                $smallList->set('one', 0),
+                $smallList->set('two', 1),
+                $smallList->set('three', 2)
+            )
+            ->boolean($this->testedInstance->isAList())
+                ->isTrue()
+            ->if($list->set($smallList, 'custom', 'field'))
+            ->boolean($list->isAList())
+                ->isFalse()
+            ->boolean($list->isAList('custom'))
+                ->isFalse()
+            ->boolean($list->isAList('custom', 'field'))
+                ->isTrue()
+        ;
+    }
+
+    public function shouldBeCapableOfAppendDataInAList()
+    {
+        $this
+            ->given(
+                $data = 500,
+                $rumData = $this->newTestedInstance(),
+                $smallList = $this->newTestedInstance(),
+                $smallList->set('one', 0),
+                $smallList->set('two', 1),
+                $smallList->set('three', 2),
+                $foo = $this->newTestedInstance(),
+                $foo->set('value', 'key')
+            )
+            ->if($rumData->set($smallList, 'custom', 'field'))
+            ->boolean($rumData->isAList('custom', 'field'))
+                ->isTrue()
+            ->if($rumData->append($foo, 'custom', 'field'))
+            ->boolean($rumData->isAList('custom', 'field'))
+                ->isTrue()
+            ->array((array) $rumData->get('custom', 'field'))
+                ->variable[3]->isEqualTo($foo)
+        ;
+    }
 }

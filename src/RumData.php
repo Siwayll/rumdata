@@ -4,6 +4,32 @@ namespace Siwayll\RumData;
 
 class RumData implements \ArrayAccess
 {
+    public function isAList(...$names)
+    {
+        $value = $this->get(...$names);
+        if ($value === null) {
+            return true;
+        }
+        foreach ($value as $key => $value) {
+            if (!is_numeric($key)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function append($value, ...$names): self
+    {
+        if ($this->isAList(...$names) === false) {
+            return $this;
+        }
+
+        $id = count((array) $this->get(...$names));
+        $names[] = $id;
+        return $this->set($value, ...$names);
+    }
+
     public function get(...$names)
     {
         $data = $this;
